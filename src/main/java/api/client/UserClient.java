@@ -6,7 +6,6 @@ import io.restassured.response.Response;
 import static io.restassured.RestAssured.given;
 
 public class UserClient {
-
     @Step("Create User")
     public Response creationUser(String body) {
         return given()

@@ -42,7 +42,7 @@ public class CreateOrderTest {
         ingredients.add("61c0c5a71d1f82001bdaaa6e");
         OrderClient orderClient = new OrderClient();
         Response createOrderBodyResponse = orderClient.creationOrderWithoutAuthorisation(order);
-        createOrderBodyResponse.then().assertThat().body("success", equalTo(true));
+        createOrderBodyResponse.then().statusCode(200).and().assertThat().body("success", equalTo(true));
     }
 
     @Test
@@ -64,7 +64,7 @@ public class CreateOrderTest {
     }
 
     @Test
-    @DisplayName("Check the Order's creation without the User's Authorisation with wrong Ingredient's hash")
+    @DisplayName("Check the Order's creation without the User's Authorisation with wrong Ingredient's hash") // часто появляется 429 ошибка: слишком много запросов
     public void creationTheOrderWithWrongHashTest() {
         ingredients.add("61c0c5a71d1f82001bdaaa6yy");
         ingredients.add("61c0c5a71d1f82001bdaaa6zz");
@@ -86,7 +86,7 @@ public class CreateOrderTest {
         ingredients.add("61c0c5a71d1f82001bdaaa6e");
         OrderClient orderClient = new OrderClient();
         Response createOrderBodyResponse = orderClient.creationOrderWithoutAuthorisation(order);
-        createOrderBodyResponse.then().assertThat().body("success", equalTo(true));
+        createOrderBodyResponse.then().statusCode(200).and().assertThat().body("success", equalTo(true));
     }
 
     @Test

@@ -25,15 +25,10 @@ public class ChangeUserTest {
     private final String email = "vasya1700@yandex.ru";
     private final String password = "1237897";
     private final String name = "maxim";
-
     private final String emailChanged = "65555marwell@yandex.ru";
     private final String passwordChanged = "7555mewmewmew";
     private final String nameChanged = "87777rocket";
-
     private final String emailChangedOnly = "markus102@mail.com";
-    private final String passwordChangeOnly = "Red Army";
-    private final String nameChangeOnly = "Kutuzoff";
-
 
     private final String createUserBody = "{\"email\": \"" + email + "\", \"password\": \"" + password + "\", \"name\": \"" + name + "\"}";
     private final String loginUserBody = "{\"email\": \"" + email + "\", \"password\": \"" + password + "\"}";
@@ -55,7 +50,7 @@ public class ChangeUserTest {
         login.loginUser(loginUserBody);
         ChangeUserClient changeUserClient = new ChangeUserClient();
         Response changeUserClientResponse = changeUserClient.changeUserDataWithAuthorization(authorisationToken, loginUserChangeBody);
-        changeUserClientResponse.then().assertThat().body("success", equalTo(true));
+        changeUserClientResponse.then().statusCode(200).and().assertThat().body("success", equalTo(true));
     }
 
     @Test
@@ -69,7 +64,7 @@ public class ChangeUserTest {
         login.loginUser(loginUserBody);
         ChangeUserClient changeUserClient = new ChangeUserClient();
         Response changeUserClientResponse = changeUserClient.changeUserEmailWithAuthorization(authorisationToken, loginUserChangeEmailBody);
-        changeUserClientResponse.then().assertThat().body("success", equalTo(true));
+        changeUserClientResponse.then().statusCode(200).and().assertThat().body("success", equalTo(true));
     }
 
     @Test
@@ -83,7 +78,7 @@ public class ChangeUserTest {
         login.loginUser(loginUserBody);
         ChangeUserClient changeUserClient = new ChangeUserClient();
         Response changeUserClientResponse = changeUserClient.changeUserPasswordWithAuthorization(authorisationToken, loginUserChangePasswordBody);
-        changeUserClientResponse.then().assertThat().body("success", equalTo(true));
+        changeUserClientResponse.then().statusCode(200).and().assertThat().body("success", equalTo(true));
     }
 
     @Test
@@ -97,7 +92,7 @@ public class ChangeUserTest {
         login.loginUser(loginUserBody);
         ChangeUserClient changeUserClient = new ChangeUserClient();
         Response changeUserClientResponse = changeUserClient.changeUserNameWithAuthorization(authorisationToken, loginUserChangeNameBody);
-        changeUserClientResponse.then().assertThat().body("success", equalTo(true));
+        changeUserClientResponse.then().statusCode(200).and().assertThat().body("success", equalTo(true));
     }
 
     @Test
@@ -109,7 +104,7 @@ public class ChangeUserTest {
         authorisationToken = Helper.parseAuthorisationToken(body);
         ChangeUserClient changeUserClient = new ChangeUserClient();
         Response changeUserClientResponse = changeUserClient.changeUserDataWithoutAuthorization(loginUserChangeBody);
-        changeUserClientResponse.then().assertThat().body("success", equalTo(false), "message", equalTo("You should be authorised"));
+        changeUserClientResponse.then().statusCode(401).and().assertThat().body("success", equalTo(false), "message", equalTo("You should be authorised"));
     }
 
     @After

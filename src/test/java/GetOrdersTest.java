@@ -23,7 +23,6 @@ public class GetOrdersTest {
     private List<String> ingredients = new ArrayList<String>();
     private Order order = new Order(ingredients);
     private final String ingredientsBody = "{\"ingredients\": \"" + ingredients + "\"}";
-
     private String authorisationToken;
 
     @Before
@@ -37,7 +36,7 @@ public class GetOrdersTest {
     public void checkReceiptTest() {
         GetOrdersClient getOrdersClient = new GetOrdersClient();
         Response getOrdersResponse = getOrdersClient.getOrders();
-        getOrdersResponse.then().assertThat().body("success", equalTo(true));
+        getOrdersResponse.then().statusCode(200).and().assertThat().body("success", equalTo(true));
     }
 
     @Test
@@ -55,7 +54,7 @@ public class GetOrdersTest {
         orderClient.creationOrderWithoutAuthorisation(order);
         GetOrdersClient getOrdersClient = new GetOrdersClient();
         Response getOrdersResponse = getOrdersClient.getOrdersWithAuthorization(authorisationToken);
-        getOrdersResponse.then().assertThat().body("success", equalTo(true));
+        getOrdersResponse.then().statusCode(200).and().assertThat().body("success", equalTo(true));
     }
 
     @After

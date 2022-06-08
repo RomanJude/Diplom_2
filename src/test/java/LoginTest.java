@@ -5,7 +5,6 @@ import io.restassured.response.Response;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.json.JSONObject;
 
 import static org.hamcrest.Matchers.*;
 
@@ -32,7 +31,7 @@ public class LoginTest {
     private final String loginUserWithWrongPasswordBody = "{\"email\": \"" + email + "\", \"wrongPassword\": \"" + wrongPassword + "\"}";
     private String authorisationToken;
 
-        @Test
+    @Test
     @DisplayName("Check the User authorisation with all needed fields")
     public void loginWithRightFieldsTest() {
         UserClient userClient = new UserClient();
@@ -41,7 +40,7 @@ public class LoginTest {
         authorisationToken = Helper.parseAuthorisationToken(body);
         LoginClient login = new LoginClient();
         Response loginUserResponse = login.loginUser(loginUserBody);
-        loginUserResponse.then().assertThat().body("success", equalTo(true));
+        loginUserResponse.then().statusCode(200).and().assertThat().body("success", equalTo(true));
     }
 
     @Test

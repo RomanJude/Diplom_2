@@ -5,7 +5,6 @@ import io.restassured.response.Response;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.json.JSONObject;
 
 import java.util.concurrent.TimeUnit;
 
@@ -35,7 +34,7 @@ public class CreateUserTest {
         Response createUserResponse = userClient.creationUser(createUserBody);
         String body = createUserResponse.body().asString();
         authorisationToken = Helper.parseAuthorisationToken(body);
-        createUserResponse.then().assertThat().body("success", equalTo(true));
+        createUserResponse.then().statusCode(200).and().assertThat().body("success", equalTo(true));
     }
 
     @Test
